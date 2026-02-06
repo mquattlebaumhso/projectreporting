@@ -2,10 +2,37 @@
 <SolutionManifest>
   <UniqueName>mquattlebaumhso_projectreporting</UniqueName>
   <Version>1.0.0.0</Version>
-  <PublisherUniqueName>mquattlebaumhso</PublisherUniqueName>
-  <FriendlyName>Project Reporting - Unmanaged</FriendlyName>
-  <Description>Unmanaged solution export containing core entities for project reporting</Description>
+  <PublisherUniqueName>hso</PublisherUniqueName>
+  <FriendlyName>Project Reporting</FriendlyName>
+  <Description>Project Reporting solution providing core entities for managing projects, tasks, milestones, budgets, and status tracking</Description>
   <SolutionType>Unmanaged</SolutionType>
   <CreatedBy>projectreporting-tool</CreatedBy>
   <CreatedOn>2026-02-06T00:00:00Z</CreatedOn>
+  
+  <SolutionComponents>
+    <!-- Project Entity -->
+    <SolutionComponent type="1" schemaName="hso_project" objectId="550e8400-e29b-41d4-a716-446655440001" />
+    <!-- Task Entity -->
+    <SolutionComponent type="1" schemaName="hso_task" objectId="550e8400-e29b-41d4-a716-446655440002" />
+    <!-- Milestone Entity -->
+    <SolutionComponent type="1" schemaName="hso_milestone" objectId="550e8400-e29b-41d4-a716-446655440003" />
+    <!-- Time Entry Entity -->
+    <SolutionComponent type="1" schemaName="hso_timeentry" objectId="550e8400-e29b-41d4-a716-446655440004" />
+    <!-- Cost Entity -->
+    <SolutionComponent type="1" schemaName="hso_cost" objectId="550e8400-e29b-41d4-a716-446655440005" />
+    <!-- Budget Entity -->
+    <SolutionComponent type="1" schemaName="hso_budget" objectId="550e8400-e29b-41d4-a716-446655440006" />
+    <!-- Risk Entity -->
+    <SolutionComponent type="1" schemaName="hso_risk" objectId="550e8400-e29b-41d4-a716-446655440007" />
+    <!-- Status Update Entity -->
+    <SolutionComponent type="1" schemaName="hso_statusupdate" objectId="550e8400-e29b-41d4-a716-446655440008" />
+    <!-- Attachment Entity -->
+    <SolutionComponent type="1" schemaName="hso_attachment" objectId="550e8400-e29b-41d4-a716-446655440009" />
+  </SolutionComponents>
+
+  <Dependencies>
+    <!-- System dependencies -->
+    <Dependency type="WebResource" schemaName="systemuser" />
+  </Dependencies>
+
 </SolutionManifest>

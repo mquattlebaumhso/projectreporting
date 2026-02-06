@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImportExportXml>
   <Entities>
-    <!-- Project entity -->
+    <!-- hso_project Entity -->
     <Entity>
       <MetadataId>{f13a7b8e-1c8d-4d3d-9a2b-0a1f2c3b4d5e}</MetadataId>
-      <SchemaName>new_project</SchemaName>
+      <LogicalName>hso_project</LogicalName>
       <DisplayName>
         <LocalizedLabels>
           <LocalizedLabel description="Project" languagecode="1033" />
         </LocalizedLabels>
       </DisplayName>
+      <Description>
+        <LocalizedLabels>
+          <LocalizedLabel description="Top-level project record" languagecode="1033" />
+        </LocalizedLabels>
+      </Description>
+      <ObjectTypeCode>10000</ObjectTypeCode>
+      <OwnershipType>UserOwned</OwnershipType>
       <Attributes>
         <Attribute>
-          <SchemaName>new_projectid</SchemaName>
+          <LogicalName>hso_projectid</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Project Id" languagecode="1033" />
@@ -22,7 +29,7 @@
           <IsPrimaryId>true</IsPrimaryId>
         </Attribute>
         <Attribute>
-          <SchemaName>new_name</SchemaName>
+          <LogicalName>hso_name</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Name" languagecode="1033" />
@@ -30,9 +37,10 @@
           </DisplayName>
           <AttributeType>String</AttributeType>
           <MaxLength>200</MaxLength>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
         </Attribute>
         <Attribute>
-          <SchemaName>new_projectnumber</SchemaName>
+          <LogicalName>hso_projectnumber</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Project Number" languagecode="1033" />
@@ -42,38 +50,117 @@
           <MaxLength>50</MaxLength>
         </Attribute>
         <Attribute>
-          <SchemaName>new_startdate</SchemaName>
+          <LogicalName>hso_projecttype</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Project Type" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Picklist</AttributeType>
+          <OptionSet>
+            <Option value="100000000" ExternalValue="internal">
+              <Label>
+                <LocalizedLabel description="Internal" languagecode="1033" />
+              </Label>
+            </Option>
+            <Option value="100000001" ExternalValue="customer">
+              <Label>
+                <LocalizedLabel description="Customer" languagecode="1033" />
+              </Label>
+            </Option>
+            <Option value="100000002" ExternalValue="rd">
+              <Label>
+                <LocalizedLabel description="R&amp;D" languagecode="1033" />
+              </Label>
+            </Option>
+            <Option value="100000003" ExternalValue="operational">
+              <Label>
+                <LocalizedLabel description="Operational" languagecode="1033" />
+              </Label>
+            </Option>
+          </OptionSet>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_managerid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Project Manager" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <Targets>
+            <Target>systemuser</Target>
+          </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_startdate</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Start Date" languagecode="1033" />
             </LocalizedLabels>
           </DisplayName>
           <AttributeType>DateTime</AttributeType>
+          <DateTimeBehavior>UserLocal</DateTimeBehavior>
         </Attribute>
         <Attribute>
-          <SchemaName>new_enddate</SchemaName>
+          <LogicalName>hso_enddate</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="End Date" languagecode="1033" />
             </LocalizedLabels>
           </DisplayName>
           <AttributeType>DateTime</AttributeType>
+          <DateTimeBehavior>UserLocal</DateTimeBehavior>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_status</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Status" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Picklist</AttributeType>
+          <OptionSet>
+            <Option value="100000000"><Label><LocalizedLabel description="Proposed" languagecode="1033" /></Label></Option>
+            <Option value="100000001"><Label><LocalizedLabel description="Active" languagecode="1033" /></Label></Option>
+            <Option value="100000002"><Label><LocalizedLabel description="On Hold" languagecode="1033" /></Label></Option>
+            <Option value="100000003"><Label><LocalizedLabel description="Completed" languagecode="1033" /></Label></Option>
+            <Option value="100000004"><Label><LocalizedLabel description="Cancelled" languagecode="1033" /></Label></Option>
+          </OptionSet>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_percentcomplete</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Percent Complete" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Decimal</AttributeType>
+          <Precision>2</Precision>
+          <IsCalculated>true</IsCalculated>
         </Attribute>
       </Attributes>
     </Entity>
 
-    <!-- Task entity -->
+    <!-- hso_task Entity -->
     <Entity>
       <MetadataId>{a2b3c4d5-e6f7-4812-9abc-0d1e2f3a4b5c}</MetadataId>
-      <SchemaName>new_task</SchemaName>
+      <LogicalName>hso_task</LogicalName>
       <DisplayName>
         <LocalizedLabels>
           <LocalizedLabel description="Task" languagecode="1033" />
         </LocalizedLabels>
       </DisplayName>
+      <Description>
+        <LocalizedLabels>
+          <LocalizedLabel description="Work breakdown tasks belonging to a project" languagecode="1033" />
+        </LocalizedLabels>
+      </Description>
+      <ObjectTypeCode>10001</ObjectTypeCode>
+      <OwnershipType>UserOwned</OwnershipType>
       <Attributes>
         <Attribute>
-          <SchemaName>new_taskid</SchemaName>
+          <LogicalName>hso_taskid</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Task Id" languagecode="1033" />
@@ -83,7 +170,32 @@
           <IsPrimaryId>true</IsPrimaryId>
         </Attribute>
         <Attribute>
-          <SchemaName>new_title</SchemaName>
+          <LogicalName>hso_projectid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Project" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <Targets>
+            <Target>hso_project</Target>
+          </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_parenttaskid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Parent Task" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <Targets>
+            <Target>hso_task</Target>
+          </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_title</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Title" languagecode="1033" />
@@ -93,32 +205,64 @@
           <MaxLength>250</MaxLength>
         </Attribute>
         <Attribute>
-          <SchemaName>new_projectid</SchemaName>
+          <LogicalName>hso_ownerid</LogicalName>
           <DisplayName>
             <LocalizedLabels>
-              <LocalizedLabel description="Project" languagecode="1033" />
+              <LocalizedLabel description="Owner" languagecode="1033" />
             </LocalizedLabels>
           </DisplayName>
           <AttributeType>Lookup</AttributeType>
           <Targets>
-            <Target>new_project</Target>
+            <Target>systemuser</Target>
           </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_efforthours</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Effort (hours)" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Decimal</AttributeType>
+          <Precision>2</Precision>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_status</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Status" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Picklist</AttributeType>
+          <OptionSet>
+            <Option value="100000000"><Label><LocalizedLabel description="Not Started" languagecode="1033" /></Label></Option>
+            <Option value="100000001"><Label><LocalizedLabel description="In Progress" languagecode="1033" /></Label></Option>
+            <Option value="100000002"><Label><LocalizedLabel description="Blocked" languagecode="1033" /></Label></Option>
+            <Option value="100000003"><Label><LocalizedLabel description="Complete" languagecode="1033" /></Label></Option>
+          </OptionSet>
         </Attribute>
       </Attributes>
     </Entity>
 
-    <!-- Milestone entity -->
+    <!-- hso_milestone Entity -->
     <Entity>
       <MetadataId>{b4c3d2e1-f0a9-482a-8c7b-1e2d3c4b5a6f}</MetadataId>
-      <SchemaName>new_milestone</SchemaName>
+      <LogicalName>hso_milestone</LogicalName>
       <DisplayName>
         <LocalizedLabels>
           <LocalizedLabel description="Milestone" languagecode="1033" />
         </LocalizedLabels>
       </DisplayName>
+      <Description>
+        <LocalizedLabels>
+          <LocalizedLabel description="Key milestones within a project" languagecode="1033" />
+        </LocalizedLabels>
+      </Description>
+      <ObjectTypeCode>10002</ObjectTypeCode>
+      <OwnershipType>UserOwned</OwnershipType>
       <Attributes>
         <Attribute>
-          <SchemaName>new_milestoneid</SchemaName>
+          <LogicalName>hso_milestoneid</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Milestone Id" languagecode="1033" />
@@ -128,29 +272,75 @@
           <IsPrimaryId>true</IsPrimaryId>
         </Attribute>
         <Attribute>
-          <SchemaName>new_duedate</SchemaName>
+          <LogicalName>hso_projectid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Project" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <Targets>
+            <Target>hso_project</Target>
+          </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_name</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Name" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>String</AttributeType>
+          <MaxLength>200</MaxLength>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_duedate</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Due Date" languagecode="1033" />
             </LocalizedLabels>
           </DisplayName>
           <AttributeType>DateTime</AttributeType>
+          <DateTimeBehavior>UserLocal</DateTimeBehavior>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_status</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Status" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Picklist</AttributeType>
+          <OptionSet>
+            <Option value="100000000"><Label><LocalizedLabel description="Planned" languagecode="1033" /></Label></Option>
+            <Option value="100000001"><Label><LocalizedLabel description="At Risk" languagecode="1033" /></Label></Option>
+            <Option value="100000002"><Label><LocalizedLabel description="Achieved" languagecode="1033" /></Label></Option>
+            <Option value="100000003"><Label><LocalizedLabel description="Missed" languagecode="1033" /></Label></Option>
+          </OptionSet>
         </Attribute>
       </Attributes>
     </Entity>
 
-    <!-- TimeEntry entity -->
+    <!-- hso_timeentry Entity -->
     <Entity>
       <MetadataId>{c5d6e7f8-1234-4abc-9def-0a1b2c3d4e5f}</MetadataId>
-      <SchemaName>new_timeentry</SchemaName>
+      <LogicalName>hso_timeentry</LogicalName>
       <DisplayName>
         <LocalizedLabels>
           <LocalizedLabel description="Time Entry" languagecode="1033" />
         </LocalizedLabels>
       </DisplayName>
+      <Description>
+        <LocalizedLabels>
+          <LocalizedLabel description="User time logged against tasks" languagecode="1033" />
+        </LocalizedLabels>
+      </Description>
+      <ObjectTypeCode>10003</ObjectTypeCode>
+      <OwnershipType>UserOwned</OwnershipType>
       <Attributes>
         <Attribute>
-          <SchemaName>new_timeentryid</SchemaName>
+          <LogicalName>hso_timeentryid</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Time Entry Id" languagecode="1033" />
@@ -160,7 +350,43 @@
           <IsPrimaryId>true</IsPrimaryId>
         </Attribute>
         <Attribute>
-          <SchemaName>new_hours</SchemaName>
+          <LogicalName>hso_taskid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Task" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <Targets>
+            <Target>hso_task</Target>
+          </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_userid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="User" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <Targets>
+            <Target>systemuser</Target>
+          </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_date</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Date" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>DateTime</AttributeType>
+          <DateTimeBehavior>UserLocal</DateTimeBehavior>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_hours</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Hours" languagecode="1033" />
@@ -172,18 +398,25 @@
       </Attributes>
     </Entity>
 
-    <!-- Cost entity -->
+    <!-- hso_cost Entity -->
     <Entity>
       <MetadataId>{d6e7f812-3456-4bcd-8ef0-1a2b3c4d5e6f}</MetadataId>
-      <SchemaName>new_cost</SchemaName>
+      <LogicalName>hso_cost</LogicalName>
       <DisplayName>
         <LocalizedLabels>
           <LocalizedLabel description="Cost" languagecode="1033" />
         </LocalizedLabels>
       </DisplayName>
+      <Description>
+        <LocalizedLabels>
+          <LocalizedLabel description="Costs charged to a project" languagecode="1033" />
+        </LocalizedLabels>
+      </Description>
+      <ObjectTypeCode>10004</ObjectTypeCode>
+      <OwnershipType>UserOwned</OwnershipType>
       <Attributes>
         <Attribute>
-          <SchemaName>new_costid</SchemaName>
+          <LogicalName>hso_costid</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Cost Id" languagecode="1033" />
@@ -193,7 +426,20 @@
           <IsPrimaryId>true</IsPrimaryId>
         </Attribute>
         <Attribute>
-          <SchemaName>new_amount</SchemaName>
+          <LogicalName>hso_projectid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Project" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <Targets>
+            <Target>hso_project</Target>
+          </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_amount</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Amount" languagecode="1033" />
@@ -202,21 +448,53 @@
           <AttributeType>Money</AttributeType>
           <Precision>2</Precision>
         </Attribute>
+        <Attribute>
+          <LogicalName>hso_costtype</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Cost Type" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Picklist</AttributeType>
+          <OptionSet>
+            <Option value="100000000"><Label><LocalizedLabel description="Labor" languagecode="1033" /></Label></Option>
+            <Option value="100000001"><Label><LocalizedLabel description="Material" languagecode="1033" /></Label></Option>
+            <Option value="100000002"><Label><LocalizedLabel description="Travel" languagecode="1033" /></Label></Option>
+            <Option value="100000003"><Label><LocalizedLabel description="Other" languagecode="1033" /></Label></Option>
+          </OptionSet>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_incurreddate</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Incurred Date" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>DateTime</AttributeType>
+          <DateTimeBehavior>UserLocal</DateTimeBehavior>
+        </Attribute>
       </Attributes>
     </Entity>
 
-    <!-- Budget entity -->
+    <!-- hso_budget Entity -->
     <Entity>
       <MetadataId>{e7f81234-5678-4cde-9f01-2b3c4d5e6f70}</MetadataId>
-      <SchemaName>new_budget</SchemaName>
+      <LogicalName>hso_budget</LogicalName>
       <DisplayName>
         <LocalizedLabels>
           <LocalizedLabel description="Budget" languagecode="1033" />
         </LocalizedLabels>
       </DisplayName>
+      <Description>
+        <LocalizedLabels>
+          <LocalizedLabel description="Budget or forecast entries per project and period" languagecode="1033" />
+        </LocalizedLabels>
+      </Description>
+      <ObjectTypeCode>10005</ObjectTypeCode>
+      <OwnershipType>UserOwned</OwnershipType>
       <Attributes>
         <Attribute>
-          <SchemaName>new_budgetid</SchemaName>
+          <LogicalName>hso_budgetid</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Budget Id" languagecode="1033" />
@@ -226,7 +504,40 @@
           <IsPrimaryId>true</IsPrimaryId>
         </Attribute>
         <Attribute>
-          <SchemaName>new_amount</SchemaName>
+          <LogicalName>hso_projectid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Project" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <Targets>
+            <Target>hso_project</Target>
+          </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_periodstart</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Period Start" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>DateTime</AttributeType>
+          <DateTimeBehavior>UserLocal</DateTimeBehavior>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_periodend</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Period End" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>DateTime</AttributeType>
+          <DateTimeBehavior>UserLocal</DateTimeBehavior>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_amount</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Amount" languagecode="1033" />
@@ -235,21 +546,42 @@
           <AttributeType>Money</AttributeType>
           <Precision>2</Precision>
         </Attribute>
+        <Attribute>
+          <LogicalName>hso_type</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Budget Type" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Picklist</AttributeType>
+          <OptionSet>
+            <Option value="100000000"><Label><LocalizedLabel description="Planned" languagecode="1033" /></Label></Option>
+            <Option value="100000001"><Label><LocalizedLabel description="Revised" languagecode="1033" /></Label></Option>
+            <Option value="100000002"><Label><LocalizedLabel description="Forecast" languagecode="1033" /></Label></Option>
+          </OptionSet>
+        </Attribute>
       </Attributes>
     </Entity>
 
-    <!-- Risk entity -->
+    <!-- hso_risk Entity -->
     <Entity>
       <MetadataId>{f8123456-7890-4def-8abc-3c4d5e6f7081}</MetadataId>
-      <SchemaName>new_risk</SchemaName>
+      <LogicalName>hso_risk</LogicalName>
       <DisplayName>
         <LocalizedLabels>
           <LocalizedLabel description="Risk / Issue" languagecode="1033" />
         </LocalizedLabels>
       </DisplayName>
+      <Description>
+        <LocalizedLabels>
+          <LocalizedLabel description="Risks and issues tied to a project" languagecode="1033" />
+        </LocalizedLabels>
+      </Description>
+      <ObjectTypeCode>10006</ObjectTypeCode>
+      <OwnershipType>UserOwned</OwnershipType>
       <Attributes>
         <Attribute>
-          <SchemaName>new_riskid</SchemaName>
+          <LogicalName>hso_riskid</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Risk Id" languagecode="1033" />
@@ -259,29 +591,91 @@
           <IsPrimaryId>true</IsPrimaryId>
         </Attribute>
         <Attribute>
-          <SchemaName>new_severity</SchemaName>
+          <LogicalName>hso_projectid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Project" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <Targets>
+            <Target>hso_project</Target>
+          </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_title</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Title" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>String</AttributeType>
+          <MaxLength>250</MaxLength>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_severity</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Severity" languagecode="1033" />
             </LocalizedLabels>
           </DisplayName>
           <AttributeType>Picklist</AttributeType>
+          <OptionSet>
+            <Option value="100000000"><Label><LocalizedLabel description="Low" languagecode="1033" /></Label></Option>
+            <Option value="100000001"><Label><LocalizedLabel description="Medium" languagecode="1033" /></Label></Option>
+            <Option value="100000002"><Label><LocalizedLabel description="High" languagecode="1033" /></Label></Option>
+            <Option value="100000003"><Label><LocalizedLabel description="Critical" languagecode="1033" /></Label></Option>
+          </OptionSet>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_status</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Status" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Picklist</AttributeType>
+          <OptionSet>
+            <Option value="100000000"><Label><LocalizedLabel description="Open" languagecode="1033" /></Label></Option>
+            <Option value="100000001"><Label><LocalizedLabel description="Mitigating" languagecode="1033" /></Label></Option>
+            <Option value="100000002"><Label><LocalizedLabel description="Closed" languagecode="1033" /></Label></Option>
+          </OptionSet>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_ownerid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Owner" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <Targets>
+            <Target>systemuser</Target>
+          </Targets>
         </Attribute>
       </Attributes>
     </Entity>
 
-    <!-- StatusUpdate entity -->
+    <!-- hso_statusupdate Entity -->
     <Entity>
       <MetadataId>{089abcdef-0123-4abc-9def-4d5e6f708192}</MetadataId>
-      <SchemaName>new_statusupdate</SchemaName>
+      <LogicalName>hso_statusupdate</LogicalName>
       <DisplayName>
         <LocalizedLabels>
           <LocalizedLabel description="Status Update" languagecode="1033" />
         </LocalizedLabels>
       </DisplayName>
+      <Description>
+        <LocalizedLabels>
+          <LocalizedLabel description="Periodic status updates for a project" languagecode="1033" />
+        </LocalizedLabels>
+      </Description>
+      <ObjectTypeCode>10007</ObjectTypeCode>
+      <OwnershipType>UserOwned</OwnershipType>
       <Attributes>
         <Attribute>
-          <SchemaName>new_statusupdateid</SchemaName>
+          <LogicalName>hso_statusupdateid</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Status Update Id" languagecode="1033" />
@@ -291,7 +685,40 @@
           <IsPrimaryId>true</IsPrimaryId>
         </Attribute>
         <Attribute>
-          <SchemaName>new_percentcomplete</SchemaName>
+          <LogicalName>hso_projectid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Project" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Lookup</AttributeType>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <Targets>
+            <Target>hso_project</Target>
+          </Targets>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_periodstart</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Period Start" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>DateTime</AttributeType>
+          <DateTimeBehavior>UserLocal</DateTimeBehavior>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_periodend</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Period End" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>DateTime</AttributeType>
+          <DateTimeBehavior>UserLocal</DateTimeBehavior>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_percentcomplete</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Percent Complete" languagecode="1033" />
@@ -300,21 +727,65 @@
           <AttributeType>Decimal</AttributeType>
           <Precision>2</Precision>
         </Attribute>
+        <Attribute>
+          <LogicalName>hso_health</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Health" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Picklist</AttributeType>
+          <OptionSet>
+            <Option value="100000000"><Label><LocalizedLabel description="Green" languagecode="1033" /></Label></Option>
+            <Option value="100000001"><Label><LocalizedLabel description="Yellow" languagecode="1033" /></Label></Option>
+            <Option value="100000002"><Label><LocalizedLabel description="Red" languagecode="1033" /></Label></Option>
+          </OptionSet>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_notes</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Notes" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Memo</AttributeType>
+          <MaxLength>4000</MaxLength>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_needsapproval</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Needs Approval" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Boolean</AttributeType>
+          <OptionSet>
+            <Option value="0"><Label><LocalizedLabel description="No" languagecode="1033" /></Label></Option>
+            <Option value="1"><Label><LocalizedLabel description="Yes" languagecode="1033" /></Label></Option>
+          </OptionSet>
+        </Attribute>
       </Attributes>
     </Entity>
 
-    <!-- Attachment metadata entity -->
+    <!-- hso_attachment Entity -->
     <Entity>
       <MetadataId>{1a2b3c4d-5e6f-4789-8abc-5d6e7f8091a2}</MetadataId>
-      <SchemaName>new_attachment</SchemaName>
+      <LogicalName>hso_attachment</LogicalName>
       <DisplayName>
         <LocalizedLabels>
           <LocalizedLabel description="Attachment" languagecode="1033" />
         </LocalizedLabels>
       </DisplayName>
+      <Description>
+        <LocalizedLabels>
+          <LocalizedLabel description="Metadata for files stored in SharePoint / Blob" languagecode="1033" />
+        </LocalizedLabels>
+      </Description>
+      <ObjectTypeCode>10008</ObjectTypeCode>
+      <OwnershipType>UserOwned</OwnershipType>
       <Attributes>
         <Attribute>
-          <SchemaName>new_attachmentid</SchemaName>
+          <LogicalName>hso_attachmentid</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="Attachment Id" languagecode="1033" />
@@ -324,7 +795,26 @@
           <IsPrimaryId>true</IsPrimaryId>
         </Attribute>
         <Attribute>
-          <SchemaName>new_filename</SchemaName>
+          <LogicalName>hso_parentrecordid</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Parent Record Id" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Uniqueidentifier</AttributeType>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_parententity</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="Parent Entity" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>String</AttributeType>
+          <MaxLength>100</MaxLength>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_filename</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="File Name" languagecode="1033" />
@@ -334,7 +824,16 @@
           <MaxLength>260</MaxLength>
         </Attribute>
         <Attribute>
-          <SchemaName>new_fileurl</SchemaName>
+          <LogicalName>hso_filesize</LogicalName>
+          <DisplayName>
+            <LocalizedLabels>
+              <LocalizedLabel description="File Size" languagecode="1033" />
+            </LocalizedLabels>
+          </DisplayName>
+          <AttributeType>Integer</AttributeType>
+        </Attribute>
+        <Attribute>
+          <LogicalName>hso_fileurl</LogicalName>
           <DisplayName>
             <LocalizedLabels>
               <LocalizedLabel description="File Url" languagecode="1033" />
@@ -348,10 +847,92 @@
 
   </Entities>
 
-  <Relationships />
+  <Relationships>
+    <EntityRelationship Name="hso_project_manager">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntity Name="hso_project">
+        <ReferencingAttribute Name="hso_managerid" />
+      </ReferencingEntity>
+      <ReferencedEntity Name="systemuser" />
+    </EntityRelationship>
+
+    <EntityRelationship Name="hso_task_project">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntity Name="hso_task">
+        <ReferencingAttribute Name="hso_projectid" />
+      </ReferencingEntity>
+      <ReferencedEntity Name="hso_project" />
+    </EntityRelationship>
+
+    <EntityRelationship Name="hso_task_parent">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntity Name="hso_task">
+        <ReferencingAttribute Name="hso_parenttaskid" />
+      </ReferencingEntity>
+      <ReferencedEntity Name="hso_task" />
+    </EntityRelationship>
+
+    <EntityRelationship Name="hso_milestone_project">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntity Name="hso_milestone">
+        <ReferencingAttribute Name="hso_projectid" />
+      </ReferencingEntity>
+      <ReferencedEntity Name="hso_project" />
+    </EntityRelationship>
+
+    <EntityRelationship Name="hso_timeentry_task">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntity Name="hso_timeentry">
+        <ReferencingAttribute Name="hso_taskid" />
+      </ReferencingEntity>
+      <ReferencedEntity Name="hso_task" />
+    </EntityRelationship>
+
+    <EntityRelationship Name="hso_timeentry_user">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntity Name="hso_timeentry">
+        <ReferencingAttribute Name="hso_userid" />
+      </ReferencingEntity>
+      <ReferencedEntity Name="systemuser" />
+    </EntityRelationship>
+
+    <EntityRelationship Name="hso_cost_project">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntity Name="hso_cost">
+        <ReferencingAttribute Name="hso_projectid" />
+      </ReferencingEntity>
+      <ReferencedEntity Name="hso_project" />
+    </EntityRelationship>
+
+    <EntityRelationship Name="hso_budget_project">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntity Name="hso_budget">
+        <ReferencingAttribute Name="hso_projectid" />
+      </ReferencingEntity>
+      <ReferencedEntity Name="hso_project" />
+    </EntityRelationship>
+
+    <EntityRelationship Name="hso_risk_project">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntity Name="hso_risk">
+        <ReferencingAttribute Name="hso_projectid" />
+      </ReferencingEntity>
+      <ReferencedEntity Name="hso_project" />
+    </EntityRelationship>
+
+    <EntityRelationship Name="hso_statusupdate_project">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntity Name="hso_statusupdate">
+        <ReferencingAttribute Name="hso_projectid" />
+      </ReferencingEntity>
+      <ReferencedEntity Name="hso_project" />
+    </EntityRelationship>
+  </Relationships>
+
   <OptionSets />
   <Forms />
   <Views />
   <Charts />
   <SdkMessageProcessingSteps />
+
 </ImportExportXml>
