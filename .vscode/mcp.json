@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"report-dataverse-mcp-fd787cfc": {
+			"url": "https://mqreport.crm.dynamics.com/api/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}

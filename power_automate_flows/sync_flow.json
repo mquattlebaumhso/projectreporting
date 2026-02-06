@@ -1,0 +1,72 @@
+{
+  "name": "Scheduled Project Data Sync",
+  "description": "Daily sync from source systems into Dataverse with transform step",
+  "trigger": {
+    "type": "Recurrence",
+    "interval": 1,
+    "frequency": "Day",
+    "startTime": "2026-02-01T02:00:00Z"
+  },
+  "actions": [
+    {
+      "name": "Get_Project_Rows",
+      "type": "SqlServer",
+      "action": "GetRows",
+      "connection": "sql_server_connection",
+      "params": {"query":"SELECT ProjectNumber, Name, ManagerEmail, StartDate, EndDate, Status FROM Projects WHERE ModifiedDate >= @lastRun"}
+    },
+    {
+      "name": "Transform",
+      "type": "Compose",
+      "action": "Map",
+      "params": {
+        "mapping": {
+          "projectnumber": "ProjectNumber",
+          "name": "Name",
+          "startdate":"StartDate",
+          "enddate":"EndDate",
+          "status":"Status",
+          "manageremail":"ManagerEmail"
+        }
+      }
+    },
+    {
+      "name": "Lookup_Manager",
+      "type": "Dataverse",
+      "action": "ListRecords",
+      "connection": "dataverse_connection",
+      "params": {"table":"systemuser","filter":"email eq '@{item()?['manageremail']}'","top":1}
+    },
+    {
+      "name": "Upsert_Project",
+      "type": "Dataverse",
+      "action": "UpsertRecord",
+      "connection": "dataverse_connection",
+      "params": {
+        "table": "project",
+        "keyField": "projectnumber",
+        "record": {
+          "projectnumber": "@{item()?['projectnumber']}",
+          "name": "@{item()?['name']}",
+          "startdate": "@{item()?['startdate']}",
+          "enddate": "@{item()?['enddate']}",
+          "status": "@{item()?['status']}",
+          "managerid@odata.bind": "@{if(equals(length(body('Lookup_Manager')?['value']), 0), null, concat('/systemusers(', first(body('Lookup_Manager')?['value'])?['systemuserid'], ')'))}"
+        }
+      }
+    },
+    {
+      "name": "Log_Summary",
+      "type": "Office365Outlook",
+      "action": "SendEmail",
+      "params": {"to":"pmops@example.com","subject":"Daily Sync Summary","body":"@{outputs('Upsert_Project')?['status']}"}
+    }
+  ],
+  "errorHandling": {
+    "onFailure": [
+      {"action":"LogToAppInsights","params":{"message":"Sync failed","level":"Error"}},
+      {"action":"SendTeamsNotification","params":{"team":"PMO","message":"Scheduled project sync failed - investigate"}}
+    ]
+  },
+  "notes": "Use batching when calling Dataverse to improve throughput; persist lastRun timestamp in Azure Table or Dataverse table to support incremental syncs. For large datasets consider Azure Data Factory or CDC pattern."
+}

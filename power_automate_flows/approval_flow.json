@@ -1,0 +1,50 @@
+{
+  "name": "Status Update Approval",
+  "description": "When a Status Update requires approval, start an approval and apply outcome",
+  "trigger": {
+    "type": "When a row is added, modified",
+    "connector": "Dataverse",
+    "table": "statusupdate",
+    "filter": "needsapproval eq true"
+  },
+  "actions": [
+    {
+      "name": "Start_Approval",
+      "type": "Approvals",
+      "action": "StartAndWaitForApproval",
+      "params": {
+        "title": "Approve status update for @{triggerOutputs()?['body/projectid']} - @{triggerOutputs()?['body/periodstart']}",
+        "assignedTo": "@{body('Get_Project_Manager')?['email']}",
+        "details": "Percent complete: @{triggerOutputs()?['body/percentcomplete']}\nNotes: @{triggerOutputs()?['body/notes']}"
+      }
+    },
+    {
+      "name": "On_Approve_Update_Record",
+      "type": "Dataverse",
+      "action": "UpdateRecord",
+      "runAfter": {"Start_Approval":["Approved"]},
+      "params": {
+        "table": "statusupdate",
+        "id": "@{triggerOutputs()?['body/statusupdateid']}",
+        "record": {"needsapproval": false, "health": "Green", "approvedby": "@{outputs('Start_Approval')?['responder']}", "approvedon": "@{utcNow()}"}
+      }
+    },
+    {
+      "name": "On_Reject_Create_Issue",
+      "type": "Dataverse",
+      "action": "CreateRecord",
+      "runAfter": {"Start_Approval":["Rejected"]},
+      "params": {
+        "table": "risk",
+        "record": {"projectid": "@{triggerOutputs()?['body/projectid']}", "title": "Approval Rejected - review status", "severity": "High", "status": "Open", "ownerid": "@{outputs('Start_Approval')?['responder']}"}
+      }
+    },
+    {
+      "name": "Notify_Team",
+      "type": "Teams",
+      "action": "PostMessage",
+      "params": {"team":"Project Team","message":"Status update @{triggerOutputs()?['body/statusupdateid']} was @{outputs('Start_Approval')?['outcome']}"}
+    }
+  ],
+  "notes": "Add parallel branches for multiple approvers, and add timeout handling. Use Dataverse security roles to restrict who can set needsapproval. Persist approval history in a dedicated table for auditing."
+}

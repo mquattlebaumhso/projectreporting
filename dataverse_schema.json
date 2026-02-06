@@ -1,0 +1,147 @@
+{
+  "tables": [
+    {
+      "logicalName": "project",
+      "displayName": "Project",
+      "description": "Top-level project record",
+      "primaryField": "projectid",
+      "columns": [
+        {"name":"projectid","displayName":"Project Id","type":"UniqueIdentifier","required":true},
+        {"name":"name","displayName":"Name","type":"String","required":true,"maxLength":200},
+        {"name":"projectnumber","displayName":"Project Number","type":"String","required":false,"maxLength":50,"indexed":true},
+        {"name":"projecttype","displayName":"Project Type","type":"Choice","choices":["Internal","Customer","R&amp;D","Operational"]},
+        {"name":"managerid","displayName":"Project Manager","type":"Lookup","target":"systemuser","required":false,"indexed":true},
+        {"name":"startdate","displayName":"Start Date","type":"DateTime"},
+        {"name":"enddate","displayName":"End Date","type":"DateTime"},
+        {"name":"status","displayName":"Status","type":"Choice","choices":["Proposed","Active","On Hold","Completed","Cancelled"]},
+        {"name":"percentcomplete","displayName":"Percent Complete","type":"Decimal","precision":2,"calculated":true,"calculation":"(Sum of completed work / Total work) * 100"}
+      ]
+    },
+    {
+      "logicalName": "task",
+      "displayName": "Task",
+      "description": "Work breakdown tasks belonging to a project",
+      "primaryField": "taskid",
+      "columns": [
+        {"name":"taskid","displayName":"Task Id","type":"UniqueIdentifier","required":true},
+        {"name":"projectid","displayName":"Project","type":"Lookup","target":"project","required":true,"indexed":true},
+        {"name":"parenttaskid","displayName":"Parent Task","type":"Lookup","target":"task"},
+        {"name":"title","displayName":"Title","type":"String","maxLength":250},
+        {"name":"ownerid","displayName":"Owner","type":"Lookup","target":"systemuser"},
+        {"name":"efforthours","displayName":"Effort (hours)","type":"Decimal","precision":2},
+        {"name":"status","displayName":"Status","type":"Choice","choices":["Not Started","In Progress","Blocked","Complete"]}
+      ]
+    },
+    {
+      "logicalName": "milestone",
+      "displayName": "Milestone",
+      "description": "Key milestones within a project",
+      "primaryField": "milestoneid",
+      "columns": [
+        {"name":"milestoneid","displayName":"Milestone Id","type":"UniqueIdentifier"},
+        {"name":"projectid","displayName":"Project","type":"Lookup","target":"project","required":true},
+        {"name":"name","displayName":"Name","type":"String","maxLength":200},
+        {"name":"duedate","displayName":"Due Date","type":"DateTime"},
+        {"name":"status","displayName":"Status","type":"Choice","choices":["Planned","At Risk","Achieved","Missed"]}
+      ]
+    },
+    {
+      "logicalName": "systemuser",
+      "displayName": "User",
+      "description": "People who work on projects (use Dataverse systemuser where possible)",
+      "primaryField": "systemuserid",
+      "columns": [
+        {"name":"systemuserid","displayName":"User Id","type":"UniqueIdentifier"},
+        {"name":"fullname","displayName":"Full Name","type":"String","maxLength":200},
+        {"name":"email","displayName":"Email","type":"String","maxLength":100},
+        {"name":"role","displayName":"Role","type":"Choice","choices":["Project Manager","Engineer","Finance","Sponsor","PMO"]},
+        {"name":"costrate","displayName":"Cost Rate","type":"Money","precision":2}
+      ]
+    },
+    {
+      "logicalName": "timeentry",
+      "displayName": "Time Entry",
+      "description": "User time logged against tasks",
+      "primaryField": "timeentryid",
+      "columns": [
+        {"name":"timeentryid","displayName":"Time Entry Id","type":"UniqueIdentifier"},
+        {"name":"taskid","displayName":"Task","type":"Lookup","target":"task","required":true,"indexed":true},
+        {"name":"userid","displayName":"User","type":"Lookup","target":"systemuser","required":true,"indexed":true},
+        {"name":"date","displayName":"Date","type":"DateTime"},
+        {"name":"hours","displayName":"Hours","type":"Decimal","precision":2}
+      ]
+    },
+    {
+      "logicalName": "cost",
+      "displayName": "Cost",
+      "description": "Costs charged to a project",
+      "primaryField": "costid",
+      "columns": [
+        {"name":"costid","displayName":"Cost Id","type":"UniqueIdentifier"},
+        {"name":"projectid","displayName":"Project","type":"Lookup","target":"project","required":true},
+        {"name":"amount","displayName":"Amount","type":"Money","precision":2},
+        {"name":"costtype","displayName":"Cost Type","type":"Choice","choices":["Labor","Material","Travel","Other"]},
+        {"name":"incurreddate","displayName":"Incurred Date","type":"DateTime"}
+      ]
+    },
+    {
+      "logicalName": "budget",
+      "displayName": "Budget",
+      "description": "Budget or forecast entries per project and period",
+      "primaryField": "budgetid",
+      "columns": [
+        {"name":"budgetid","displayName":"Budget Id","type":"UniqueIdentifier"},
+        {"name":"projectid","displayName":"Project","type":"Lookup","target":"project","required":true},
+        {"name":"periodstart","displayName":"Period Start","type":"DateTime"},
+        {"name":"periodend","displayName":"Period End","type":"DateTime"},
+        {"name":"amount","displayName":"Amount","type":"Money","precision":2},
+        {"name":"type","displayName":"Budget Type","type":"Choice","choices":["Planned","Revised","Forecast"]}
+      ]
+    },
+    {
+      "logicalName": "risk",
+      "displayName": "Risk / Issue",
+      "description": "Risks and issues tied to a project",
+      "primaryField": "riskid",
+      "columns": [
+        {"name":"riskid","displayName":"Risk Id","type":"UniqueIdentifier"},
+        {"name":"projectid","displayName":"Project","type":"Lookup","target":"project","required":true},
+        {"name":"title","displayName":"Title","type":"String","maxLength":250},
+        {"name":"severity","displayName":"Severity","type":"Choice","choices":["Low","Medium","High","Critical"]},
+        {"name":"status","displayName":"Status","type":"Choice","choices":["Open","Mitigating","Closed"]},
+        {"name":"ownerid","displayName":"Owner","type":"Lookup","target":"systemuser"}
+      ]
+    },
+    {
+      "logicalName": "statusupdate",
+      "displayName": "Status Update",
+      "description": "Periodic status updates for a project",
+      "primaryField": "statusupdateid",
+      "columns": [
+        {"name":"statusupdateid","displayName":"Status Update Id","type":"UniqueIdentifier"},
+        {"name":"projectid","displayName":"Project","type":"Lookup","target":"project","required":true},
+        {"name":"periodstart","displayName":"Period Start","type":"DateTime"},
+        {"name":"periodend","displayName":"Period End","type":"DateTime"},
+        {"name":"percentcomplete","displayName":"Percent Complete","type":"Decimal","precision":2},
+        {"name":"health","displayName":"Health","type":"Choice","choices":["Green","Yellow","Red"]},
+        {"name":"notes","displayName":"Notes","type":"MultilineText","maxLength":4000},
+        {"name":"needsapproval","displayName":"Needs Approval","type":"TwoOptions","options":["No","Yes"]}
+      ]
+    },
+    {
+      "logicalName": "attachment",
+      "displayName": "Attachment",
+      "description": "Metadata for files stored in SharePoint / Blob",
+      "primaryField": "attachmentid",
+      "columns": [
+        {"name":"attachmentid","displayName":"Attachment Id","type":"UniqueIdentifier"},
+        {"name":"parentrecordid","displayName":"Parent Record Id","type":"UniqueIdentifier"},
+        {"name":"parententity","displayName":"Parent Entity","type":"String","maxLength":100},
+        {"name":"filename","displayName":"File Name","type":"String","maxLength":260},
+        {"name":"filesize","displayName":"File Size","type":"Integer"},
+        {"name":"fileurl","displayName":"File Url","type":"String","maxLength":2000}
+      ]
+    }
+  ],
+  "notes": "Use Dataverse choice tables for multi-language support where needed; create indexes on foreign keys and frequently-filtered fields such as projectid, managerid, and period fields. Implement calculated and rollup fields for CPI/SPI in a reporting layer rather than as expensive Dataverse rollups for large datasets. Store large files in SharePoint/Blob and keep only metadata in Dataverse."
+}
