@@ -16,18 +16,16 @@
     <SolutionComponent type="1" schemaName="hso_task" objectId="550e8400-e29b-41d4-a716-446655440002" />
     <!-- Milestone Entity -->
     <SolutionComponent type="1" schemaName="hso_milestone" objectId="550e8400-e29b-41d4-a716-446655440003" />
-    <!-- Time Entry Entity -->
-    <SolutionComponent type="1" schemaName="hso_timeentry" objectId="550e8400-e29b-41d4-a716-446655440004" />
     <!-- Cost Entity -->
-    <SolutionComponent type="1" schemaName="hso_cost" objectId="550e8400-e29b-41d4-a716-446655440005" />
+    <SolutionComponent type="1" schemaName="hso_cost" objectId="550e8400-e29b-41d4-a716-446655440004" />
     <!-- Budget Entity -->
-    <SolutionComponent type="1" schemaName="hso_budget" objectId="550e8400-e29b-41d4-a716-446655440006" />
+    <SolutionComponent type="1" schemaName="hso_budget" objectId="550e8400-e29b-41d4-a716-446655440005" />
     <!-- Risk Entity -->
-    <SolutionComponent type="1" schemaName="hso_risk" objectId="550e8400-e29b-41d4-a716-446655440007" />
+    <SolutionComponent type="1" schemaName="hso_risk" objectId="550e8400-e29b-41d4-a716-446655440006" />
     <!-- Status Update Entity -->
-    <SolutionComponent type="1" schemaName="hso_statusupdate" objectId="550e8400-e29b-41d4-a716-446655440008" />
+    <SolutionComponent type="1" schemaName="hso_statusupdate" objectId="550e8400-e29b-41d4-a716-446655440007" />
     <!-- Attachment Entity -->
-    <SolutionComponent type="1" schemaName="hso_attachment" objectId="550e8400-e29b-41d4-a716-446655440009" />
+    <SolutionComponent type="1" schemaName="hso_attachment" objectId="550e8400-e29b-41d4-a716-446655440008" />
   </SolutionComponents>
 
   <Dependencies>

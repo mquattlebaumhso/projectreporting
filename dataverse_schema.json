@@ -62,19 +62,6 @@
       ]
     },
     {
-      "logicalName": "hso_timeentry",
-      "displayName": "Time Entry",
-      "description": "User time logged against tasks",
-      "primaryField": "hso_timeentryid",
-      "columns": [
-        {"name":"hso_timeentryid","displayName":"Time Entry Id","type":"UniqueIdentifier"},
-        {"name":"hso_taskid","displayName":"Task","type":"Lookup","target":"hso_task","required":true,"indexed":true},
-        {"name":"hso_userid","displayName":"User","type":"Lookup","target":"systemuser","required":true,"indexed":true},
-        {"name":"hso_date","displayName":"Date","type":"DateTime"},
-        {"name":"hso_hours","displayName":"Hours","type":"Decimal","precision":2}
-      ]
-    },
-    {
       "logicalName": "hso_cost",
       "displayName": "Cost",
       "description": "Costs charged to a project",
